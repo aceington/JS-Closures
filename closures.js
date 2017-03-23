@@ -124,7 +124,7 @@ function motivation(firstname, lastname) {
 
   var welcomeText = 'You\'re doing awesome, keep it up ';
 
-  function message(){
+  function message() {
     return welcomeText + firstname + ' ' + lastname + '.';
   }
 
@@ -163,10 +163,14 @@ var module = (function () {
   // Anything that is being returned is made public and can be invoked from
   // outside our lexical scope
   return {
-    // Code here.
+    publicMethod: function () {
+      return privateMethod();
+    }
   };
 
 })();
+
+module.publicMethod();
 
 
 
@@ -182,13 +186,20 @@ var friends = ["Tom", "Dick", "Harry"];
 var secondLevelFriends = ["Anne", "Harry", "Quinton"];
 var allUsers = ["Tom", "Dick", "Harry", "Anne", "Quinton", "Katie", "Mary"];
 
-function findPotentialFriends(existingFriends) {
-
+function findPotentialFriends() {
+  return function(friend) {
+    if(friends.indexOf(friend) === -1){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }
 
 var isNotAFriend = findPotentialFriends(friends);
-// isNotAFriend(allUsers[0]); // false
-// isNotAFriend(secondLevelFriends[2]); // true
+isNotAFriend(allUsers[0]); // false
+isNotAFriend(secondLevelFriends[2]); // true
 
 
 /******************************************************************************\
